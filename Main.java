@@ -49,9 +49,9 @@ public class Main
         visited[r][c] = true;
         result[r][c] = String.valueOf(grid[r][c]);
 
-        // Explore all 8 neighbors (row delta, col delta)
-        int[] dr = {-1, -1, -1,  0, 0,  1, 1, 1};
-        int[] dc = {-1,  0,  1, -1, 1, -1, 0, 1};
+        // Explore all 8 neighbors: left, right, down, up, then diagonals
+        int[] dr = { 0,  0, 1, -1, -1, -1, 1,  1};
+        int[] dc = {-1,  1, 0,  0, -1,  1, -1, 1};
 
         for (int d = 0; d < 8; d++)
         {
@@ -106,26 +106,30 @@ public class Main
 
     public static void main(String[] args)
     {
-        int R = in.nextInt();
-        int C = in.nextInt();
-        int W = in.nextInt();
-
-        Main ms = new Main(R, C);
-
-        // Read the grid
-        for (int i = 0; i < R; i++)
+        // Loop to handle multiple test cases
+        while (in.hasNextInt())
         {
-            for (int j = 0; j < C; j++)
+            int R = in.nextInt();
+            int C = in.nextInt();
+            int W = in.nextInt();
+
+            Main ms = new Main(R, C);
+
+            // Read the grid
+            for (int i = 0; i < R; i++)
             {
-                ms.grid[i][j] = in.next().charAt(0);
+                for (int j = 0; j < C; j++)
+                {
+                    ms.grid[i][j] = in.next().charAt(0);
+                }
             }
-        }
 
-        // Search for each word
-        for (int i = 0; i < W; i++)
-        {
-            String word = in.next();
-            ms.findWord(word);
+            // Search for each word
+            for (int i = 0; i < W; i++)
+            {
+                String word = in.next();
+                ms.findWord(word);
+            }
         }
     }
 }
