@@ -19,15 +19,22 @@ public class Main
     // Returns true if (r, c) is in bounds, not yet visited, and matches target char
     private boolean isSafe(int r, int c, char target, boolean[][] visited)
     {
-        // TODO: check bounds, visited, and grid[r][c] == target
-        return false;
+        if(r < 0 || r >= rows)
+            return false; //out of bounds row
+        if(c < 0 || c >= cols)
+            return false; //out of bounds col
+        if(visited[r][c])
+            return false; //already used the cell
+        if(grid[r][c] != target)
+            return false; //wrong letter
+        return true;
     }
 
-    // Recursive DFS: tries to match word[idx...] starting at cell (r, c)
-    // result holds the letter at each matched position (spaces elsewhere)
+    // tries to match word[idx] starting at cell (r, c)
+    // result holds the letter at each matched position
     private boolean search(int r, int c, String word, int idx, boolean[][] visited, String[][] result)
     {
-        // Base case: all characters have been matched
+        // all characters have been matched
         if (idx == word.length())
         {
             return true;
@@ -38,7 +45,7 @@ public class Main
             return false;
         }
 
-        // Choose: mark cell as visited and record letter
+        // mark cell as visited and record letter
         visited[r][c] = true;
         result[r][c] = String.valueOf(grid[r][c]);
 
@@ -48,10 +55,11 @@ public class Main
 
         for (int d = 0; d < 8; d++)
         {
-            // TODO: recurse into neighbor (r + dr[d], c + dc[d]) for idx + 1
+            if(search(r + dr[d], c + dc[d], word, idx + 1, visited, result))
+                return true;
         }
 
-        // Un-choose: backtrack
+        // backtrack
         visited[r][c] = false;
         result[r][c] = " ";
 
@@ -72,7 +80,14 @@ public class Main
         boolean[][] visited = new boolean[rows][cols];
         boolean found = false;
 
-        // TODO: try each cell (r, c) as a starting position; call search(r, c, word, 0, visited, result)
+        for(int r = 0; r < rows && !found; r++)
+        {
+            for(int c = 0; c < cols && !found; c++)
+            {
+                if (search(r, c, word, 0, visited, result))
+                    found = true;
+            }
+        }
 
         if (found)
         {
