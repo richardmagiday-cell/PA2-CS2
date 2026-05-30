@@ -49,9 +49,9 @@ public class Main
         visited[r][c] = true;
         result[r][c] = String.valueOf(grid[r][c]);
 
-        // Explore all 8 neighbors: left, right, down, up, then diagonals
-        int[] dr = { 0,  0, 1, -1, -1, -1, 1,  1};
-        int[] dc = {-1,  1, 0,  0, -1,  1, -1, 1};
+        // Explore all 8 neighbors: left, right, down, up, down-right, down-left, up-left, up-right
+        int[] dr = { 0,  0,  1, -1,  1,  1, -1, -1};
+        int[] dc = {-1,  1,  0,  0,  1, -1, -1,  1};
 
         for (int d = 0; d < 8; d++)
         {
