@@ -1,0 +1,21 @@
+COP 3503C Assignment 2 - Time Complexity Analysis
+Written by: Richard Magiday
+
+The algorithm uses backtracking to search for each word in an M x N grid.
+
+For each word of length L, the wrapper (findWord) tries every cell in the
+grid as a potential starting point — O(M*N) starting cells.
+
+From each starting cell, the recursive backtracking function (search) explores
+up to 8 directions at each step and recurses up to L levels deep (one level
+per character in the word). Visited cells are marked to prevent reuse, so the
+branching factor is at most 8 at each level.
+
+Time complexity per word: O(M * N * 8^L)
+
+For S words, the overall time complexity is: O(S * M * N * 8^L)
+
+where M = rows, N = columns, S = number of words, L = length of the longest word.
+
+Space complexity is O(M * N + L) for the visited and result arrays plus the
+recursion stack of depth L.
